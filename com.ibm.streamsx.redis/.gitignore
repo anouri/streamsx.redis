@@ -2,3 +2,5 @@
 /com.ibm.streamsx.redis/
 /.apt_generated/
 /doc/
+.toolkitList
+toolkit.xml
