@@ -8,8 +8,8 @@
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/anouri/workspace/streamsx.redis/com.ibm.streamsx.redis/impl/lib/ext/slf4j-api-1.7.25.jar"/>
-	<classpathentry kind="lib" path="/home/anouri/workspace/streamsx.redis/com.ibm.streamsx.redis/impl/lib/ext/jedis-3.2.0.jar"/>
-	<classpathentry kind="lib" path="/home/anouri/workspace/streamsx.redis/com.ibm.streamsx.redis/impl/lib/ext/commons-pool2-2.6.2.jar"/>
+	<classpathentry kind="lib" path="impl/lib/ext/commons-pool2-2.6.2.jar"/>
+	<classpathentry kind="lib" path="impl/lib/ext/jedis-3.2.0.jar"/>
+	<classpathentry kind="lib" path="impl/lib/ext/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="output" path="impl/java/bin"/>
 </classpath>
