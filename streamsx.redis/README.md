@@ -1,28 +1,6 @@
 # streamsx.redis
 
-The `streamsx.redis` toolkit project is an open source Streams toolkit project focused on the development of operators and functions that extend IBM Streams ability to interact with REDIS database via JEDIS 
-https://github.com/xetorthio/jedis.
-
-
-To make this project you need: 
-
-apacahe ant  https://ant.apache.org/ 
-
-and 
-
-apache maven https://maven.apache.org/
-
-```
-cd com.ibm.streamsx.redis
-ant
-```
-
-It downloads the needed JAR libraries in directory:
-```
- ./streamsx.redis/com.ibm.streamsx.redis/impl/lib/ext
-```
-and creates the toolkit.
-
+The IBMStreams/streamsx.redis toolkit project is an open source Streams toolkit project focused on the development of operators and functions that extend IBM Streams ability to interact with database via REDIS.
 
 ### Remark
 This toolkit implements the NLS feature. Use the guidelines for the message bundle that are described in the [Messages and National Language Support for toolkits](https://github.com/IBMStreams/administration/wiki/Messages-and-National-Language-Support-for-toolkits) document.

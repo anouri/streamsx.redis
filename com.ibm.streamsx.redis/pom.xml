@@ -1,0 +1,44 @@
+<!-- # # ******************************************************************************* 
+    # * Copyright (C)2020, International Business Machines Corporation and * 
+    # * others. All Rights Reserved. * # ******************************************************************************* 
+    # The maven pom.xml file created to download the necessary jar files for jedis 
+    can be adapt to your Hadoop system. # The exclusions are set to download 
+    only needed jar files and not all dependencies. -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.ibm.streamsx.redis</groupId>
+    <artifactId>streamsx.redis</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0</version>
+    <name>com.ibm.streamsx.redis</name>
+ 
+    <repositories>
+        <repository>
+           <id>snapshots-repo</id>
+           <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+
+
+    <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>3.2.0</version>
+        <type>jar</type>
+        <scope>compile</scope>
+    </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <sourceDirectory>.</sourceDirectory>
+        <plugins>
+        </plugins>
+    </build>
+</project>
+

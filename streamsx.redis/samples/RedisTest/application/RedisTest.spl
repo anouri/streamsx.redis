@@ -1,0 +1,115 @@
+// *******************************************************************************
+// * Copyright (C) 2020 International Business Machines Corporation
+// * All Rights Reserved
+// *******************************************************************************
+namespace application ;
+
+use com.ibm.streamsx.redis::* ;
+/*******************************************************************************
+ * RedisTest demonstrates how to connect to a REDIS database and how to 
+ * insert some key/value pairs into database using 'RedisSet' operator.
+ * It shows also how get values from a database using 'RedisGet' operator.
+ * 
+ * To connect to database, the following parameters need to be specified:
+ * * redisUrl: the database URL. (e.g. redis://<server:port>)
+ * * redisPassword: the database password.
+ *  
+ *******************************************************************************/
+composite RedisTest
+{
+		param
+			expression<rstring> $redisHost : getSubmissionTimeValue("redisHost", "localhost") ;
+			expression<rstring> $redisClassName : getSubmissionTimeValue("redisClassName", "com.ibm.db2.jcc.DB2Driver") ;
+			expression<rstring> $redisUrl : getSubmissionTimeValue("redisUrl", "redis://localhost:6379") ;
+			expression<rstring> $redisUser : getSubmissionTimeValue("redisUser", "db2inst1") ;
+			expression<rstring> $redisPassword : getSubmissionTimeValue("redisPassword", "Ibm2blue-") ;
+
+			expression<rstring> $credentials : getSubmissionTimeValue("credentials", "{
+					\"username\": \"dash15202\",
+					\"redisUrl\": \"redis://localhost:6379\",
+					\"password\": \"Ibm2blue-\"
+				}") ;
+
+		graph
+			stream<rstring keyAttr, rstring valueAttr> genKeyValue = Beacon()
+			{
+					param
+						iterations : 20u ;
+						initDelay : 1.0 ;
+					output
+						genKeyValue : keyAttr = "name_" +(rstring) IterationCount(), valueAttr = "myName_" +(rstring) IterationCount() ;
+			}
+
+			stream<rstring keyAttr, rstring valueAttr> start = Beacon()
+			{
+					param
+						iterations : 1 ;
+						initDelay : 1.0 ;
+					output
+						start : keyAttr = "name_" +(rstring) IterationCount(), valueAttr = "myName_" +(rstring) IterationCount() ;
+			}
+
+			() as PrintStart = Custom(start)
+			{
+					logic
+						onTuple start : printStringLn("Start " +(rstring) getTimestamp()) ;
+			}
+
+			stream<rstring result> setValue = RedisSet(genKeyValue)
+			{
+					logic
+						state :
+						{
+								mutable int32 i2 = 0 ;
+						}
+
+						onPunct genKeyValue :
+						{
+								if(currentPunct() == Sys.FinalMarker)
+								{
+										printStringLn("End   " +(rstring) getTimestamp()) ;
+								}
+
+						}
+
+					param
+						redisUrl : $redisUrl ;
+						redisPassword : $redisPassword ;
+						connectionTimeout : 120 ;
+						keyAttr : "keyAttr" ;
+						valueAttr : "valueAttr" ;
+			}
+
+			stream<rstring value> getValue = RedisGet(genKeyValue)
+			{
+					logic
+						state :
+						{
+								mutable int32 i2 = 0 ;
+						}
+
+						onPunct genKeyValue :
+						{
+								if(currentPunct() == Sys.FinalMarker)
+								{
+										printStringLn("End   " +(rstring) getTimestamp()) ;
+								}
+
+						}
+
+					param
+						redisUrl : $redisUrl ;
+						redisPassword : $redisPassword ;
+						connectionTimeout : 120 ;
+						keyAttr : "keyAttr" ;
+			}
+
+			() as PrintGetValue = Custom(getValue ; setValue)
+			{
+					logic
+						onTuple setValue : printStringLn("result   " +(rstring) setValue) ;
+						onTuple getValue : printStringLn("value    " +(rstring) getValue) ;
+			}
+
+}
+
