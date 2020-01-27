@@ -1,6 +1,11 @@
 # streamsx.redis
 
-The `streamsx.redis` toolkit project is an open source Streams toolkit project focused on the development of operators and functions that extend IBM Streams ability to interact with REDIS database via JEDIS 
+The `streamsx.redis` toolkit project is an open source Streams toolkit project focused on the development of operators and functions that extend IBM Streams ability to interact with REDIS database:
+
+https://redis.io/
+
+It usese JEDIS libaries to connect to the REDIS database.
+
 https://github.com/xetorthio/jedis.
 
 
